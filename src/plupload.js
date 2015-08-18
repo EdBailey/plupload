@@ -2073,8 +2073,16 @@ plupload.File = (function() {
 						this.destroy();
 						return cb(blob);
 					}
-					// otherwise downsize					
-					img.downsize(params.width, params.height, params.crop, params.preserve_headers);
+					// otherwise downsize
+					var targetWidth = params.width;
+					if (params.width > this.width) {
+						targetWidth = this.width;
+					}
+					var targetHeight = params.height;
+					if (params.height > this.height) {
+						targetHeight = this.height;
+					}
+					img.downsize(targetWidth, targetHeight, params.crop, params.preserve_headers);
 				};
 
 				img.onresize = function() {
